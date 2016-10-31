@@ -2,16 +2,17 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class AtendanceController extends Controller
+class AttendanceController extends Controller
 {
     /**
-     * @param $name
+     * @Route("/", name="app_attendance_index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        return $this->render('', array('name' => $name));
+        return $this->render(':attendance:index.html.twig');
     }
 }
