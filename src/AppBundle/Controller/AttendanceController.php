@@ -13,7 +13,6 @@ class AttendanceController extends Controller
      */
     public function indexAction()
     {
-        // testing
         return $this->render(':attendance:signin.html.twig');
     }
 }
