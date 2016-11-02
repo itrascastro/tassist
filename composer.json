@@ -56,7 +56,13 @@
         "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
+            "env-map": {
+                "database_name": "SYMFONY__DATABASE_NAME",
+                "database_user": "SYMFONY__DATABASE_USER",
+                "database_host": "SYMFONY__DATABASE_HOST",
+                "database_password": "SYMFONY__DATABASE_PASSWORD"
+            }
         },
         "branch-alias": {
             "dev-master": "3.1-dev"
