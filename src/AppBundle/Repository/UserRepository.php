@@ -10,38 +10,4 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-    /**
-     * Loads the user for the given username.
-     *
-     * This method must throw UsernameNotFoundException if the user is not
-     * found.
-     *
-     * @param string $username The username
-     *
-     * @return UserInterface
-     *
-     * @see UsernameNotFoundException
-     *
-     * @throws UsernameNotFoundException if the user is not found
-     */
-    public function loadUserByUsername($username)
-    {
-        $user = $this->findOneByUsernameOrEmail($username);
-
-        if (!$user) {
-            throw new UsernameNotFoundException('No user found for username ' . $username);
-        }
-
-        return $user;
-    }
-
-    public function findOneByUsernameOrEmail($username)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.username = :username OR u.email = :username')
-            ->setParameter('username', $username)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
-    }
 }
