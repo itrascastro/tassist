@@ -2,8 +2,7 @@
 
 {% block body %}
     <form class="form-signin" action="{{ path('app_attendance_doAttendance') }}" method="post">
-        <h2 class="form-signin-heading">Attendance</h2>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button class="btn btn-lg btn-success btn-block" type="submit">Signar</button>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Attendance</button>
     </form>
 {% endblock %}
