@@ -15,6 +15,10 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
+        if ($this->isGranted('ROLE_USER')) {
+            return $this->render(':attendance:attendance.html.twig');
+        }
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
