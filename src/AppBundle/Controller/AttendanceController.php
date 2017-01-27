@@ -13,6 +13,6 @@ class AttendanceController extends Controller
      */
     public function indexAction()
     {
-        return $this->render(':attendance:signin.html.twig');
+        return $this->forward('AppBundle:Security:login');
     }
 }
