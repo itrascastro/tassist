@@ -1,8 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <form class="form-signin" action="{{ path('app_attendance_doAttendance') }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button class="btn btn-lg btn-success btn-block" type="submit">Attendance</button>
-    </form>
+    <div class="form-signin">
+        <a class="btn btn-lg btn-warning btn-block" href="{{ path('app_attendance_doAttendanceIn') }}">In</a>
+        <a class="btn btn-lg btn-success btn-block" href="{{ path('app_attendance_doAttendanceOut') }}">Out</a>
+        <a class="btn btn-lg btn-danger btn-block" href="{{ path('app_attendance_doNonAttendance') }}">Non Attendance</a>
+    </div>
+
 {% endblock %}

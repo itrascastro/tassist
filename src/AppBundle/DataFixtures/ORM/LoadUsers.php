@@ -29,20 +29,15 @@ class LoadUsers implements FixtureInterface
     {
         $admin = new User();
         $admin
-            ->setUsername('admin')
-            ->setEmail('admin@email.com')
+            ->setUsername('admin@email.com')
+            ->setForename('Ismael')
+            ->setSurname('Trascastro')
             ->setPlainPassword('1234')
             ->setRoles(['ROLE_ADMIN'])
+            ->setMondayIn(new \DateTime('15:00'))
+            ->setMondayOut(new \DateTime('21:00'))
         ;
         $manager->persist($admin);
-
-        $user1 = new User();
-        $user1
-            ->setUsername('user1')
-            ->setEmail('user1@email.com')
-            ->setPlainPassword('1234')
-        ;
-        $manager->persist($user1);
 
         $manager->flush();
     }
