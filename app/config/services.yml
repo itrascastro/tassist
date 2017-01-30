@@ -7,3 +7,5 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
 
+    app.service.timeService:
+        class: AppBundle\Service\TimeService

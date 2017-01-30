@@ -26,11 +26,10 @@ class AttendanceController extends Controller
      */
     public function doAttendanceInAction()
     {
-        $mondayIn = date_format($this->getUser()->getMondayIn(), 'H:i');
-        $now = date_format(new \DateTime(),'H:i');
-        echo $now - $mondayIn;die;
-        //$from_time = strtotime("2008-12-13 10:21:00");
-        //echo round(abs($to_time - $from_time) / 60,2). " minute";
+        $timeService = $this->get('app.service.timeService');
+
+        echo $timeService->timeDiff($this->getUser()->getMondayIn());die;
+
         return $this->redirectToRoute('app_security_logout');
     }
 
