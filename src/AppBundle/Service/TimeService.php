@@ -20,7 +20,9 @@ class TimeService
     public function timeDiff(\DateTime $date)
     {
         $dateFormated = date_format($date, 'H:i');
+        var_dump($dateFormated);
         $nowFormated = date_format(new \DateTime(),'H:i');
+        var_dump($nowFormated);
         $t1 = strtotime($dateFormated);
         $t2 = strtotime($nowFormated);
 
