@@ -29,13 +29,21 @@ class LoadUsers implements FixtureInterface
     {
         $admin = new User();
         $admin
-            ->setUsername('admin@email.com')
+            ->setUsername('itrascastro@email.com')
             ->setForename('Ismael')
             ->setSurname('Trascastro')
             ->setPlainPassword('1234')
             ->setRoles(['ROLE_ADMIN'])
             ->setMondayIn(new \DateTime('15:00'))
             ->setMondayOut(new \DateTime('21:00'))
+            ->setTuesdayIn(new \DateTime('19:40'))
+            ->setTuesdayOut(new \DateTime('19:30'))
+            ->setWednesdayIn(new \DateTime('15:00'))
+            ->setWednesdayOut(new \DateTime('21:00'))
+            ->setThursdayIn(new \DateTime('15:00'))
+            ->setThursdayOut(new \DateTime('21:00'))
+            ->setFridayIn(new \DateTime('15:00'))
+            ->setFridayOut(new \DateTime('21:00'))
         ;
         $manager->persist($admin);
 

@@ -115,6 +115,61 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $mondayOut;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tuesdayIn", type="time")
+     */
+    private $tuesdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tuesdayOut", type="time")
+     */
+    private $tuesdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="wednesdayIn", type="time")
+     */
+    private $wednesdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="wednesdayOut", type="time")
+     */
+    private $wednesdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="thursdayIn", type="time")
+     */
+    private $thursdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="thursdayOut", type="time")
+     */
+    private $thursdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fridayIn", type="time")
+     */
+    private $fridayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fridayOut", type="time")
+     */
+    private $fridayOut;
 
     public function __construct()
     {
@@ -458,5 +513,53 @@ class User implements AdvancedUserInterface, \Serializable
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * Set mondayIn
+     *
+     * @param \DateTime $mondayIn
+     *
+     * @return User
+     */
+    public function setMondayIn($mondayIn)
+    {
+        $this->mondayIn = $mondayIn;
+
+        return $this;
+    }
+
+    /**
+     * Get mondayIn
+     *
+     * @return \DateTime
+     */
+    public function getMondayIn()
+    {
+        return $this->mondayIn;
+    }
+
+    /**
+     * Set mondayOut
+     *
+     * @param \DateTime $mondayOut
+     *
+     * @return User
+     */
+    public function setMondayOut($mondayOut)
+    {
+        $this->mondayOut = $mondayOut;
+
+        return $this;
+    }
+
+    /**
+     * Get mondayOut
+     *
+     * @return \DateTime
+     */
+    public function getMondayOut()
+    {
+        return $this->mondayOut;
     }
 }

@@ -29,7 +29,26 @@ class AttendanceController extends Controller
     {
         $timeService = $this->get('app.service.timeService');
 
-        echo $timeService->timeDiff($this->getUser()->getMondayIn());die;
+        $day = (int) (new \DateTime())->format('w');
+        $delay = 0;
+
+        switch ($day) {
+            case 1:
+                $delay = $timeService->timeDiff($this->getUser()->getMondayIn());
+                break;
+            case 2:
+                $delay = $timeService->timeDiff($this->getUser()->getTuesdayIn());
+                break;
+            case 3:
+                $delay = $timeService->timeDiff($this->getUser()->getWednesdayIn());
+                break;
+            case 4:
+                $delay = $timeService->timeDiff($this->getUser()->getThursdayIn());
+                break;
+            case 5:
+                $delay = $timeService->timeDiff($this->getUser()->getFridayIn());
+                break;
+        }
 
         return $this->redirectToRoute('app_security_logout');
     }
@@ -39,6 +58,31 @@ class AttendanceController extends Controller
      */
     public function doAttendanceOutAction()
     {
+        $timeService = $this->get('app.service.timeService');
+
+        $day = (int) (new \DateTime())->format('w');
+        $delay = 0;
+
+        switch ($day) {
+            case 1:
+                $delay = $timeService->timeDiff($this->getUser()->getMondayOut());
+                break;
+            case 2:
+                $delay = $timeService->timeDiff($this->getUser()->getTuesdayOut());
+                break;
+            case 3:
+                $delay = $timeService->timeDiff($this->getUser()->getWednesdayOut());
+                break;
+            case 4:
+                $delay = $timeService->timeDiff($this->getUser()->getThursdayOut());
+                break;
+            case 5:
+                $delay = $timeService->timeDiff($this->getUser()->getFridayOut());
+                break;
+        }
+
+        $delay = -1 * $delay;
+
         return $this->redirectToRoute('app_security_logout');
     }
 

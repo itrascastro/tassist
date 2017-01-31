@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"username"}, message="Username already taken")
- * @UniqueEntity(fields={"email"}, message="Email already taken")
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -115,6 +114,61 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $mondayOut;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tuesdayIn", type="time")
+     */
+    private $tuesdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tuesdayOut", type="time")
+     */
+    private $tuesdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="wednesdayIn", type="time")
+     */
+    private $wednesdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="wednesdayOut", type="time")
+     */
+    private $wednesdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="thursdayIn", type="time")
+     */
+    private $thursdayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="thursdayOut", type="time")
+     */
+    private $thursdayOut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fridayIn", type="time")
+     */
+    private $fridayIn;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fridayOut", type="time")
+     */
+    private $fridayOut;
 
     public function __construct()
     {
@@ -506,5 +560,197 @@ class User implements AdvancedUserInterface, \Serializable
     public function getMondayOut()
     {
         return $this->mondayOut;
+    }
+
+    /**
+     * Set tuesdayIn
+     *
+     * @param \DateTime $tuesdayIn
+     *
+     * @return User
+     */
+    public function setTuesdayIn($tuesdayIn)
+    {
+        $this->tuesdayIn = $tuesdayIn;
+
+        return $this;
+    }
+
+    /**
+     * Get tuesdayIn
+     *
+     * @return \DateTime
+     */
+    public function getTuesdayIn()
+    {
+        return $this->tuesdayIn;
+    }
+
+    /**
+     * Set tuesdayOut
+     *
+     * @param \DateTime $tuesdayOut
+     *
+     * @return User
+     */
+    public function setTuesdayOut($tuesdayOut)
+    {
+        $this->tuesdayOut = $tuesdayOut;
+
+        return $this;
+    }
+
+    /**
+     * Get tuesdayOut
+     *
+     * @return \DateTime
+     */
+    public function getTuesdayOut()
+    {
+        return $this->tuesdayOut;
+    }
+
+    /**
+     * Set wednesdayIn
+     *
+     * @param \DateTime $wednesdayIn
+     *
+     * @return User
+     */
+    public function setWednesdayIn($wednesdayIn)
+    {
+        $this->wednesdayIn = $wednesdayIn;
+
+        return $this;
+    }
+
+    /**
+     * Get wednesdayIn
+     *
+     * @return \DateTime
+     */
+    public function getWednesdayIn()
+    {
+        return $this->wednesdayIn;
+    }
+
+    /**
+     * Set wednesdayOut
+     *
+     * @param \DateTime $wednesdayOut
+     *
+     * @return User
+     */
+    public function setWednesdayOut($wednesdayOut)
+    {
+        $this->wednesdayOut = $wednesdayOut;
+
+        return $this;
+    }
+
+    /**
+     * Get wednesdayOut
+     *
+     * @return \DateTime
+     */
+    public function getWednesdayOut()
+    {
+        return $this->wednesdayOut;
+    }
+
+    /**
+     * Set thursdayIn
+     *
+     * @param \DateTime $thursdayIn
+     *
+     * @return User
+     */
+    public function setThursdayIn($thursdayIn)
+    {
+        $this->thursdayIn = $thursdayIn;
+
+        return $this;
+    }
+
+    /**
+     * Get thursdayIn
+     *
+     * @return \DateTime
+     */
+    public function getThursdayIn()
+    {
+        return $this->thursdayIn;
+    }
+
+    /**
+     * Set thursdayOut
+     *
+     * @param \DateTime $thursdayOut
+     *
+     * @return User
+     */
+    public function setThursdayOut($thursdayOut)
+    {
+        $this->thursdayOut = $thursdayOut;
+
+        return $this;
+    }
+
+    /**
+     * Get thursdayOut
+     *
+     * @return \DateTime
+     */
+    public function getThursdayOut()
+    {
+        return $this->thursdayOut;
+    }
+
+    /**
+     * Set fridayIn
+     *
+     * @param \DateTime $fridayIn
+     *
+     * @return User
+     */
+    public function setFridayIn($fridayIn)
+    {
+        $this->fridayIn = $fridayIn;
+
+        return $this;
+    }
+
+    /**
+     * Get fridayIn
+     *
+     * @return \DateTime
+     */
+    public function getFridayIn()
+    {
+        return $this->fridayIn;
+    }
+
+    /**
+     * Set fridayOut
+     *
+     * @param \DateTime $fridayOut
+     *
+     * @return User
+     */
+    public function setFridayOut($fridayOut)
+    {
+        $this->fridayOut = $fridayOut;
+
+        return $this;
+    }
+
+    /**
+     * Get fridayOut
+     *
+     * @return \DateTime
+     */
+    public function getFridayOut()
+    {
+        return $this->fridayOut;
     }
 }
