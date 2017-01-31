@@ -29,10 +29,6 @@ class AttendanceController extends Controller
     {
         $timeService = $this->get('app.service.timeService');
 
-        $now = new \DateTime();
-
-        var_dump($now);die;
-
         echo $timeService->timeDiff($this->getUser()->getMondayIn());die;
 
         return $this->redirectToRoute('app_security_logout');
@@ -43,23 +39,6 @@ class AttendanceController extends Controller
      */
     public function doAttendanceOutAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $admin = new User();
-        $admin
-            ->setUsername('itrascastro@email.com')
-            ->setForename('Ismael')
-            ->setSurname('Trascastro')
-            ->setPlainPassword('1234')
-            ->setRoles(['ROLE_ADMIN'])
-            ->setMondayIn(new \DateTime('15:00'))
-            ->setMondayOut(new \DateTime('21:00'))
-        ;
-
-        $em->persist($admin);
-        $em->flush();
-
-
         return $this->redirectToRoute('app_security_logout');
     }
 
