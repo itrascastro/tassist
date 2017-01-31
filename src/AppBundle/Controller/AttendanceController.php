@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class AttendanceController extends Controller
 {
@@ -24,6 +23,9 @@ class AttendanceController extends Controller
 
     /**
      * @Route("/do-attendance-in", name="app_attendance_doAttendanceIn")
+     *
+     * http://symfony.com/blog/new-in-symfony-3-2-user-value-resolver-for-controllers
+     * http://stackoverflow.com/questions/9812510/symfony2-how-to-modify-the-current-users-entity-using-a-form
      */
     public function doAttendanceInAction()
     {

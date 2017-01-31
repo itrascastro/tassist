@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -170,12 +171,18 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $fridayOut;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AttendanceIn", mappedBy="user", cascade={"remove"})
+     */
+    private $attendanceIn;
+
     public function __construct()
     {
         $this->isActive     = true;
         $this->roles        = ['ROLE_USER'];
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
+        $this->attendanceIn = new ArrayCollection();
     }
 
     /**
