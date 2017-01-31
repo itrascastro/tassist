@@ -28,6 +28,10 @@ class AttendanceController extends Controller
     {
         $timeService = $this->get('app.service.timeService');
 
+        $now = new \DateTime();
+
+        var_dump($now);die;
+
         echo $timeService->timeDiff($this->getUser()->getMondayIn());die;
 
         return $this->redirectToRoute('app_security_logout');
