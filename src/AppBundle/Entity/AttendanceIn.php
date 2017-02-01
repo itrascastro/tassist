@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="attendance_in")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AttendanceInRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class AttendanceIn
 {
@@ -67,6 +68,15 @@ class AttendanceIn
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="attendanceIn")
      */
     private $user;
+
+    /**
+     * AttendanceIn constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = $this->createdAt;
+    }
 
     /**
      * Get id
@@ -153,13 +163,13 @@ class AttendanceIn
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @ORM\PreUpdate()
      *
      * @return AttendanceIn
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime();
 
         return $this;
     }
