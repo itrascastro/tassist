@@ -760,4 +760,38 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->fridayOut;
     }
+
+    /**
+     * Add attendanceIn
+     *
+     * @param \AppBundle\Entity\AttendanceIn $attendanceIn
+     *
+     * @return User
+     */
+    public function addAttendanceIn(\AppBundle\Entity\AttendanceIn $attendanceIn)
+    {
+        $this->attendanceIn[] = $attendanceIn;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendanceIn
+     *
+     * @param \AppBundle\Entity\AttendanceIn $attendanceIn
+     */
+    public function removeAttendanceIn(\AppBundle\Entity\AttendanceIn $attendanceIn)
+    {
+        $this->attendanceIn->removeElement($attendanceIn);
+    }
+
+    /**
+     * Get attendanceIn
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendanceIn()
+    {
+        return $this->attendanceIn;
+    }
 }

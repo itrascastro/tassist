@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\AttendanceIn;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +33,32 @@ class AttendanceController extends Controller
         $timeService = $this->get('app.service.timeService');
 
         $day = (int) (new \DateTime())->format('w');
-        $delay = 0;
+        $delay = 10;
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user->setForename('ismael');
+
+        // No se inserta bien la entrada porque no se guarda la id del usuario
+        // Tendré que traer el usuario de la base de datos y establecer la relación
+        // tal como se explica aquí
+        // http://stackoverflow.com/questions/9812510/symfony2-how-to-modify-the-current-users-entity-using-a-form
+
+        $attendanceIn = new AttendanceIn();
+        $attendanceIn->setDelay($delay);
+        $attendanceIn->setJustified(0);
+        $attendanceIn->setCreatedAt(new \DateTime());
+        $attendanceIn->setUpdatedAt(new \DateTime());
+        $user->addAttendanceIn($attendanceIn);
+
+        $em->persist($attendanceIn);
+        $em->persist($user);
+        $em->flush();
 
         switch ($day) {
             case 1:
