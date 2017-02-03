@@ -5,23 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AttendanceIn
+ * Attendance
  *
- * @ORM\Table(name="attendance_in")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AttendanceInRepository")
+ * @ORM\MappedSuperclass()
  * @ORM\HasLifecycleCallbacks()
  */
-class AttendanceIn
+class Attendance
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var int
      *
@@ -64,28 +54,16 @@ class AttendanceIn
      */
     private $commentByAdmin;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="attendanceIn")
-     */
-    private $user;
+    protected $user;
 
     /**
-     * AttendanceIn constructor.
+     * Attendance constructor.
      */
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = $this->createdAt;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->delay        = 0;
+        $this->createdAt    = new \DateTime();
+        $this->updatedAt    = $this->createdAt;
     }
 
     /**
@@ -93,7 +71,7 @@ class AttendanceIn
      *
      * @param integer $delay
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setDelay($delay)
     {
@@ -117,7 +95,7 @@ class AttendanceIn
      *
      * @param integer $justified
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setJustified($justified)
     {
@@ -141,7 +119,7 @@ class AttendanceIn
      *
      * @param \DateTime $createdAt
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setCreatedAt($createdAt)
     {
@@ -165,7 +143,7 @@ class AttendanceIn
      *
      * @ORM\PreUpdate()
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setUpdatedAt()
     {
@@ -189,7 +167,7 @@ class AttendanceIn
      *
      * @param string $commentByUser
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setCommentByUser($commentByUser)
     {
@@ -213,7 +191,7 @@ class AttendanceIn
      *
      * @param string $commentByAdmin
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setCommentByAdmin($commentByAdmin)
     {
@@ -237,7 +215,7 @@ class AttendanceIn
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return AttendanceIn
+     * @return Attendance
      */
     public function setUser(\AppBundle\Entity\User $user = null)
     {

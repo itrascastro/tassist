@@ -2,8 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\AttendanceIn;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Absence;
+use AppBundle\Entity\CheckIn;
+use AppBundle\Entity\CheckOut;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -53,14 +54,14 @@ class AttendanceController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $attendanceIn = new AttendanceIn();
-        $attendanceIn
+        $checkIn = new CheckIn();
+        $checkIn
             ->setDelay($delay)
             ->setJustified(0)
             ->setUser($this->getUser())
         ;
 
-        $em->persist($attendanceIn);
+        $em->persist($checkIn);
         $em->flush();
 
         return $this->redirectToRoute('app_security_logout');
@@ -96,6 +97,18 @@ class AttendanceController extends Controller
 
         $delay = -1 * $delay;
 
+        $em = $this->getDoctrine()->getManager();
+
+        $checkOut = new CheckOut();
+        $checkOut
+            ->setDelay($delay)
+            ->setJustified(0)
+            ->setUser($this->getUser())
+        ;
+
+        $em->persist($checkOut);
+        $em->flush();
+
         return $this->redirectToRoute('app_security_logout');
     }
 
@@ -104,6 +117,17 @@ class AttendanceController extends Controller
      */
     public function doNonAttendance()
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $absence = new Absence();
+        $absence
+            ->setJustified(1)
+            ->setUser($this->getUser())
+        ;
+
+        $em->persist($absence);
+        $em->flush();
+
         return $this->redirectToRoute('app_security_logout');
     }
 }

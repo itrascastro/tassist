@@ -172,9 +172,19 @@ class User implements AdvancedUserInterface, \Serializable
     private $fridayOut;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AttendanceIn", mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CheckIn", mappedBy="user", cascade={"remove"})
      */
-    private $attendanceIn;
+    private $checkIns;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CheckOut", mappedBy="user", cascade={"remove"})
+     */
+    private $checkOuts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Absence", mappedBy="user", cascade={"remove"})
+     */
+    private $absences;
 
     public function __construct()
     {
@@ -182,7 +192,9 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles        = ['ROLE_USER'];
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
-        $this->attendanceIn = new ArrayCollection();
+        $this->checkIns     = new ArrayCollection();
+        $this->checkOuts    = new ArrayCollection();
+        $this->absences     = new ArrayCollection();
     }
 
     /**
@@ -762,36 +774,104 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add attendanceIn
+     * Add checkIn
      *
-     * @param \AppBundle\Entity\AttendanceIn $attendanceIn
+     * @param \AppBundle\Entity\Attendance $checkIn
      *
      * @return User
      */
-    public function addAttendanceIn(\AppBundle\Entity\AttendanceIn $attendanceIn)
+    public function addCheckIn(\AppBundle\Entity\Attendance $checkIn)
     {
-        $this->attendanceIn[] = $attendanceIn;
+        $this->checkIns[] = $checkIn;
 
         return $this;
     }
 
     /**
-     * Remove attendanceIn
+     * Remove checkIn
      *
-     * @param \AppBundle\Entity\AttendanceIn $attendanceIn
+     * @param \AppBundle\Entity\Attendance $checkIn
      */
-    public function removeAttendanceIn(\AppBundle\Entity\AttendanceIn $attendanceIn)
+    public function removeCheckIn(\AppBundle\Entity\Attendance $checkIn)
     {
-        $this->attendanceIn->removeElement($attendanceIn);
+        $this->checkIns->removeElement($checkIn);
     }
 
     /**
-     * Get attendanceIn
+     * Get checkIns
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAttendanceIn()
+    public function getCheckIns()
     {
-        return $this->attendanceIn;
+        return $this->checkIns;
+    }
+
+    /**
+     * Add checkOut
+     *
+     * @param \AppBundle\Entity\Attendance $checkOut
+     *
+     * @return User
+     */
+    public function addCheckOut(\AppBundle\Entity\Attendance $checkOut)
+    {
+        $this->checkOuts[] = $checkOut;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkOut
+     *
+     * @param \AppBundle\Entity\Attendance $checkOut
+     */
+    public function removeCheckOut(\AppBundle\Entity\Attendance $checkOut)
+    {
+        $this->checkOuts->removeElement($checkOut);
+    }
+
+    /**
+     * Get checkOuts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCheckOuts()
+    {
+        return $this->checkOuts;
+    }
+
+    /**
+     * Add absence
+     *
+     * @param \AppBundle\Entity\Attendance $absence
+     *
+     * @return User
+     */
+    public function addAbsence(\AppBundle\Entity\Attendance $absence)
+    {
+        $this->absences[] = $absence;
+
+        return $this;
+    }
+
+    /**
+     * Remove absence
+     *
+     * @param \AppBundle\Entity\Attendance $absence
+     */
+    public function removeAbsence(\AppBundle\Entity\Attendance $absence)
+    {
+        $this->absences->removeElement($absence);
+    }
+
+    /**
+     * Get absences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAbsences()
+    {
+        return $this->absences;
     }
 }
