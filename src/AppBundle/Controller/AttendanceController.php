@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Absence;
+use AppBundle\Entity\Attendance;
 use AppBundle\Entity\CheckIn;
 use AppBundle\Entity\CheckOut;
+use AppBundle\Form\AttendanceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AttendanceController extends Controller
@@ -16,16 +19,28 @@ class AttendanceController extends Controller
      */
     public function indexAction()
     {
-        if ($this->isGranted('ROLE_USER')) {
-            return $this->render(':attendance:attendance.html.twig');
+        if (!$this->isGranted('ROLE_USER')) {
+            return $this->forward('AppBundle:Security:login');
         }
 
-        return $this->forward('AppBundle:Security:login');
+        $attendance = new Attendance();
+        $form = $this->createForm(AttendanceType::class, $attendance);
+        $form
+            ->remove('justified')
+            ->remove('commentByAdmin')
+        ;
+
+        return $this->render(':attendance:attendance.html.twig',
+            [
+                'form' => $form->createView()
+            ]
+        );
     }
 
     /**
      * @Route("/do-check-in", name="app_attendance_doCheckIn")
      *
+     * @Security("has_role('ROLE_USER')")
      */
     public function doAttendanceInAction()
     {
@@ -71,6 +86,8 @@ class AttendanceController extends Controller
 
     /**
      * @Route("/do-check-out", name="app_attendance_doCheckOut")
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function doAttendanceOutAction()
     {
@@ -118,6 +135,8 @@ class AttendanceController extends Controller
 
     /**
      * @Route("/do-absence", name="app_attendance_absence")
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function doNonAttendance()
     {

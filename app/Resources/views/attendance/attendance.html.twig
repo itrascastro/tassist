@@ -2,6 +2,7 @@
 
 {% block body %}
     <div class="form-signin">
+        {{ form_widget(form.commentByUser) }}
         <a class="btn btn-lg btn-warning btn-block" href="{{ path('app_attendance_doCheckIn') }}">Entrada</a>
         <a class="btn btn-lg btn-success btn-block" href="{{ path('app_attendance_doCheckOut') }}">Sortida</a>
         <a class="btn btn-lg btn-danger btn-block" href="{{ path('app_attendance_absence') }}">Absència</a>
