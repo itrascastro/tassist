@@ -24,7 +24,7 @@ class AttendanceController extends Controller
     }
 
     /**
-     * @Route("/do-attendance-in", name="app_attendance_doAttendanceIn")
+     * @Route("/do-check-in", name="app_attendance_doCheckIn")
      *
      */
     public function doAttendanceInAction()
@@ -34,21 +34,23 @@ class AttendanceController extends Controller
         $day = (int) (new \DateTime())->format('w');
         $delay = 0;
 
+        $user = $this->getUser();
+
         switch ($day) {
             case 1:
-                $delay = $timeService->timeDiff($this->getUser()->getMondayIn());
+                $delay = $timeService->timeDiff($user->getMondayIn());
                 break;
             case 2:
-                $delay = $timeService->timeDiff($this->getUser()->getTuesdayIn());
+                $delay = $timeService->timeDiff($user->getTuesdayIn());
                 break;
             case 3:
-                $delay = $timeService->timeDiff($this->getUser()->getWednesdayIn());
+                $delay = $timeService->timeDiff($user->getWednesdayIn());
                 break;
             case 4:
-                $delay = $timeService->timeDiff($this->getUser()->getThursdayIn());
+                $delay = $timeService->timeDiff($user->getThursdayIn());
                 break;
             case 5:
-                $delay = $timeService->timeDiff($this->getUser()->getFridayIn());
+                $delay = $timeService->timeDiff($user->getFridayIn());
                 break;
         }
 
@@ -68,7 +70,7 @@ class AttendanceController extends Controller
     }
 
     /**
-     * @Route("/do-attendance-out", name="app_attendance_doAttendanceOut")
+     * @Route("/do-check-out", name="app_attendance_doCheckOut")
      */
     public function doAttendanceOutAction()
     {
@@ -77,21 +79,23 @@ class AttendanceController extends Controller
         $day = (int) (new \DateTime())->format('w');
         $delay = 0;
 
+        $user = $this->getUser();
+
         switch ($day) {
             case 1:
-                $delay = $timeService->timeDiff($this->getUser()->getMondayOut());
+                $delay = $timeService->timeDiff($user->getMondayOut());
                 break;
             case 2:
-                $delay = $timeService->timeDiff($this->getUser()->getTuesdayOut());
+                $delay = $timeService->timeDiff($user->getTuesdayOut());
                 break;
             case 3:
-                $delay = $timeService->timeDiff($this->getUser()->getWednesdayOut());
+                $delay = $timeService->timeDiff($user->getWednesdayOut());
                 break;
             case 4:
-                $delay = $timeService->timeDiff($this->getUser()->getThursdayOut());
+                $delay = $timeService->timeDiff($user->getThursdayOut());
                 break;
             case 5:
-                $delay = $timeService->timeDiff($this->getUser()->getFridayOut());
+                $delay = $timeService->timeDiff($user->getFridayOut());
                 break;
         }
 
@@ -113,7 +117,7 @@ class AttendanceController extends Controller
     }
 
     /**
-     * @Route("/do-non-attendance", name="app_attendance_doNonAttendance")
+     * @Route("/do-absence", name="app_attendance_absence")
      */
     public function doNonAttendance()
     {

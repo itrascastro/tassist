@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="form-signin">
-        <a class="btn btn-lg btn-warning btn-block" href="{{ path('app_attendance_doAttendanceIn') }}">In</a>
-        <a class="btn btn-lg btn-success btn-block" href="{{ path('app_attendance_doAttendanceOut') }}">Out</a>
-        <a class="btn btn-lg btn-danger btn-block" href="{{ path('app_attendance_doNonAttendance') }}">Non Attendance</a>
+        <a class="btn btn-lg btn-warning btn-block" href="{{ path('app_attendance_doCheckIn') }}">Entrada</a>
+        <a class="btn btn-lg btn-success btn-block" href="{{ path('app_attendance_doCheckOut') }}">Sortida</a>
+        <a class="btn btn-lg btn-danger btn-block" href="{{ path('app_attendance_absence') }}">Absència</a>
     </div>
 
 {% endblock %}
