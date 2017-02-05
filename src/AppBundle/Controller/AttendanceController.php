@@ -7,9 +7,11 @@ use AppBundle\Entity\Attendance;
 use AppBundle\Entity\CheckIn;
 use AppBundle\Entity\CheckOut;
 use AppBundle\Form\AttendanceType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class AttendanceController extends Controller
 {
@@ -38,11 +40,42 @@ class AttendanceController extends Controller
     }
 
     /**
-     * @Route("/do-check-in", name="app_attendance_doCheckIn")
+     * @Route("/do-attendance", name="app_attendance_doAttendance")
      *
      * @Security("has_role('ROLE_USER')")
+     * @Method(methods={"POST"})
      */
-    public function doAttendanceInAction()
+    public function doAttendanceAction(Request $request)
+    {
+        $attendance = new Attendance();
+        $form = $this->createForm(AttendanceType::class, $attendance);
+        $form
+            ->remove('justified')
+            ->remove('commentByAdmin')
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            if ($form->get('entradaBtn')->isClicked()) {
+                return $this->doAttendanceIn();
+            }
+            if ($form->get('sortidaBtn')->isClicked()) {
+                return $this->doAttendanceOut();
+            }
+            if ($form->get('absenciaBtn')->isClicked()) {
+                return $this->doAttendanceAbsence();
+            }
+        }
+
+        return $this->render(':attendance:attendance.html.twig',
+            [
+                'form' => $form->createView()
+            ]
+        );
+    }
+
+    public function doAttendanceIn()
     {
         $timeService = $this->get('app.service.timeService');
 
@@ -84,12 +117,7 @@ class AttendanceController extends Controller
         return $this->redirectToRoute('app_security_logout');
     }
 
-    /**
-     * @Route("/do-check-out", name="app_attendance_doCheckOut")
-     *
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function doAttendanceOutAction()
+    public function doAttendanceOut()
     {
         $timeService = $this->get('app.service.timeService');
 
@@ -133,12 +161,7 @@ class AttendanceController extends Controller
         return $this->redirectToRoute('app_security_logout');
     }
 
-    /**
-     * @Route("/do-absence", name="app_attendance_absence")
-     *
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function doNonAttendance()
+    public function doAttendanceAbsence()
     {
         $em = $this->getDoctrine()->getManager();
 
