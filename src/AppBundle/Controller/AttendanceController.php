@@ -6,7 +6,10 @@ use AppBundle\Entity\Absence;
 use AppBundle\Entity\Attendance;
 use AppBundle\Entity\CheckIn;
 use AppBundle\Entity\CheckOut;
+use AppBundle\Entity\User;
 use AppBundle\Form\AttendanceType;
+use AppBundle\Service\TimeService;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -57,15 +60,25 @@ class AttendanceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $timeService    = $this->get('app.service.timeService');
+            $day            = (int) (new \DateTime())->format('w');
+            $user           = $this->getUser();
+            $em             = $this->getDoctrine()->getManager();
+            $delay          = 0;
+
             if ($form->get('entradaBtn')->isClicked()) {
-                return $this->doAttendanceIn();
+                $this->doAttendanceIn($timeService, $day, $delay, $user, $attendance, $em);
             }
             if ($form->get('sortidaBtn')->isClicked()) {
-                return $this->doAttendanceOut();
+                $this->doAttendanceOut($timeService, $day, $delay, $user, $attendance, $em);
             }
             if ($form->get('absenciaBtn')->isClicked()) {
-                return $this->doAttendanceAbsence();
+                $this->doAttendanceAbsence($user, $attendance, $em);
             }
+
+            $em->flush();
+
+            return $this->redirectToRoute('app_security_logout');
         }
 
         return $this->render(':attendance:attendance.html.twig',
@@ -75,15 +88,8 @@ class AttendanceController extends Controller
         );
     }
 
-    public function doAttendanceIn()
+    public function doAttendanceIn(TimeService $timeService, $day, $delay, User $user, Attendance $attendance, ObjectManager $em)
     {
-        $timeService = $this->get('app.service.timeService');
-
-        $day = (int) (new \DateTime())->format('w');
-        $delay = 0;
-
-        $user = $this->getUser();
-
         switch ($day) {
             case 1:
                 $delay = $timeService->timeDiff($user->getMondayIn());
@@ -102,30 +108,19 @@ class AttendanceController extends Controller
                 break;
         }
 
-        $em = $this->getDoctrine()->getManager();
-
         $checkIn = new CheckIn();
         $checkIn
             ->setDelay($delay)
             ->setJustified(0)
-            ->setUser($this->getUser())
+            ->setUser($user)
+            ->setCommentByUser($attendance->getCommentByUser())
         ;
 
         $em->persist($checkIn);
-        $em->flush();
-
-        return $this->redirectToRoute('app_security_logout');
     }
 
-    public function doAttendanceOut()
+    public function doAttendanceOut(TimeService $timeService, $day, $delay, User $user, Attendance $attendance, ObjectManager $em)
     {
-        $timeService = $this->get('app.service.timeService');
-
-        $day = (int) (new \DateTime())->format('w');
-        $delay = 0;
-
-        $user = $this->getUser();
-
         switch ($day) {
             case 1:
                 $delay = $timeService->timeDiff($user->getMondayOut());
@@ -146,34 +141,26 @@ class AttendanceController extends Controller
 
         $delay = -1 * $delay;
 
-        $em = $this->getDoctrine()->getManager();
-
         $checkOut = new CheckOut();
         $checkOut
             ->setDelay($delay)
             ->setJustified(0)
-            ->setUser($this->getUser())
+            ->setUser($user)
+            ->setCommentByUser($attendance->getCommentByUser())
         ;
 
         $em->persist($checkOut);
-        $em->flush();
-
-        return $this->redirectToRoute('app_security_logout');
     }
 
-    public function doAttendanceAbsence()
+    public function doAttendanceAbsence(User $user, Attendance $attendance, ObjectManager $em)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $absence = new Absence();
         $absence
             ->setJustified(1)
-            ->setUser($this->getUser())
+            ->setUser($user)
+            ->setCommentByUser($attendance->getCommentByUser())
         ;
 
         $em->persist($absence);
-        $em->flush();
-
-        return $this->redirectToRoute('app_security_logout');
     }
 }
