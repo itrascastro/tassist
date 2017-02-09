@@ -116,9 +116,6 @@ class UserController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            //http://stackoverflow.com/a/17382359/2113231
-            // A update does only occur if a entity field (watched from doctrine) gets changed and so on the preupdate
-            // method is only called after a change.
             // PlainPassword is not a field watched from Doctrine. So we have to trigger preUpdate manually
             $eventManager = $em->getEventManager();
             $eventArgs = new LifecycleEventArgs($user, $em);
