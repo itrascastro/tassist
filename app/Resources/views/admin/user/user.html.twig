@@ -1,5 +1,43 @@
 <div class="rounded-box margin-bottom-lg">
-    {{ user.forename }} {{ user.surname }} | {{ user.username }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row margin-bottom-lg">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <b>Name:</b>
+                        </div>
+                        <div class="col-md-10">
+                            {{ user.forename }} {{ user.surname }}
+                        </div>
+                    </div> <!-- row -->
 
-    <a class="btn btn-lg btn-success" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <b>Username:</b>
+                        </div>
+                        <div class="col-md-10">
+                            {{ user.username }}
+                        </div>
+                    </div> <!-- row -->
+                </div>
+            </div> <!-- row -->
+
+            <div class="margin-bottom-lg">
+                <hr>
+            </div>
+
+            <div class="row margin-bottom-sm">
+                <div class="col-md-12">
+                    <a class="btn btn-lg btn-default" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+                    <a class="btn btn-lg btn-default" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Remove</a>
+                </div>
+            </div> <!-- row -->
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-lg btn-default btn-block" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Entrades</a>
+            <a class="btn btn-lg btn-default btn-block" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Sortides</a>
+            <a class="btn btn-lg btn-default btn-block" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Absències</a>
+        </div>
+    </div> <!-- row -->
 </div>
