@@ -56,10 +56,11 @@ class User implements AdvancedUserInterface, \Serializable
      * This field will not be persisted
      * It is used to store the password in the form
      *
-     * @Assert\NotBlank(message="Password cannot be empty")
+     * @Assert\NotBlank(message="Password cannot be empty", groups={"Update"})
      * @Assert\Regex(
      *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
-     *      message="Password Error: Use 1 upper case letter, 1 lower case letter, and 1 number"
+     *      message="Password Error: Use 1 upper case letter, 1 lower case letter, and 1 number",
+     *      groups={"Update"}
      * )
      */
     private $plainPassword;
@@ -79,6 +80,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
+    /**
+     * @var boolean
+     */
+    private $isAdmin;
 
     /**
      * @var array
@@ -189,6 +195,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->isActive     = true;
+        $this->isAdmin      = false;
         $this->roles        = ['ROLE_USER'];
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
@@ -334,6 +341,30 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * Set isActive
+     *
+     * @param boolean $isAdmin
+     *
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
      * Get createdAt
      *
      * @return \DateTime
@@ -389,6 +420,15 @@ class User implements AdvancedUserInterface, \Serializable
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 
     /**

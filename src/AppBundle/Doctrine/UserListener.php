@@ -41,11 +41,24 @@ class UserListener
         }
     }
 
+    public function preUpdate(LifecycleEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getEntity();
+
+        if ($entity instanceof User) {
+            $this->handleEvent($entity);
+        }
+    }
+
     private function handleEvent(User $user)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
         $plainPassword = $user->getPlainPassword();
-        $password = $encoder->encodePassword($plainPassword, $user->getSalt());
-        $user->setPassword($password);
+
+        if (!is_null($plainPassword)) {
+            $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+            $user->setPassword($password);
+        }
+
     }
 }
