@@ -1,0 +1,5 @@
+<div class="rounded-box margin-bottom-lg">
+    {{ user.forename }} {{ user.surname }} | {{ user.username }}
+
+    <a class="btn btn-lg btn-success" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+</div>

@@ -34,31 +34,26 @@ class UserListener
 
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
-        $entity = $eventArgs->getEntity();
-
-        if ($entity instanceof User) {
-            $this->handleEvent($entity);
-        }
+        $this->handleEvent($eventArgs);
     }
 
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
-        $entity = $eventArgs->getEntity();
-
-        if ($entity instanceof User) {
-            $this->handleEvent($entity);
-        }
+        $this->handleEvent($eventArgs);
     }
 
-    private function handleEvent(User $user)
+    private function handleEvent(LifecycleEventArgs $eventArgs)
     {
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $plainPassword = $user->getPlainPassword();
+        $user = $eventArgs->getEntity();
 
-        if (!is_null($plainPassword)) {
-            $password = $encoder->encodePassword($plainPassword, $user->getSalt());
-            $user->setPassword($password);
+        if ($user instanceof User) {
+            $encoder = $this->encoderFactory->getEncoder($user);
+            $plainPassword = $user->getPlainPassword();
+
+            if (!is_null($plainPassword)) {
+                $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+                $user->setPassword($password);
+            }
         }
-
     }
 }

@@ -32,7 +32,7 @@ class UserType extends AbstractType
             ->add('thursdayOut', TimeType::class, ['hours' => [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 'minutes' => [0, 20, 30, 50]])
             ->add('fridayIn', TimeType::class, ['hours' => [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 'minutes' => [0, 20, 30, 50]])
             ->add('fridayOut', TimeType::class, ['hours' => [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 'minutes' => [0, 20, 30, 50]])
-            ->add('newUserBtn', SubmitType::class, ['label' => 'New user', 'attr' => ['class' => 'btn btn-lg btn-success btn-block']])
+            ->add('newUserBtn', SubmitType::class, ['label' => $options['submitLabel'], 'attr' => ['class' => 'btn btn-lg btn-success btn-block']])
         ;
 
     }
@@ -43,6 +43,7 @@ class UserType extends AbstractType
             [
                 'data_class'            => 'AppBundle\Entity\User',
                 'update'                => true,
+                'submitLabel'           => 'New user',
                 'validation_groups'     => function (FormInterface $form) {
                     $data = $form->getData();
 

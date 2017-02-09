@@ -22,9 +22,10 @@ class UserController extends Controller
 
         $users = $userRepo->findAll();
 
-        return $this->render(':admin:index.html.twig',
+        return $this->render(':admin/user:users.html.twig',
             [
                 'users' => $users,
+                'title' => 'Users',
             ]
         );
     }
@@ -37,7 +38,7 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
-        return $this->render(':admin:form.html.twig',
+        return $this->render(':admin/user:form.html.twig',
             [
                 'form'      => $form->createView(),
                 'action'    => $this->generateUrl('app_admin_user_doCreate'),
@@ -69,7 +70,7 @@ class UserController extends Controller
             return $this->redirectToRoute('app_admin_user_create');
         }
 
-        return $this->render(':admin:form.html.twig',
+        return $this->render(':admin/user:form.html.twig',
             [
                 'form'      => $form->createView(),
                 'action'    => $this->generateUrl('app_admin_user_doCreate'),
@@ -84,9 +85,9 @@ class UserController extends Controller
     public function editAction(User $user)
     {
         $user->setIsAdmin($user->hasRole('ROLE_ADMIN'));
-        $form = $this->createForm(UserType::class, $user, ['update' => true]);
+        $form = $this->createForm(UserType::class, $user, ['update' => true, 'submitLabel' => 'Update user']);
 
-        return $this->render(':admin:form.html.twig',
+        return $this->render(':admin/user:form.html.twig',
             [
                 'form'      => $form->createView(),
                 'action'    => $this->generateUrl('app_admin_user_doEdit', ['id' => $user->getId()]),
@@ -103,7 +104,7 @@ class UserController extends Controller
      */
     public function doEditAction(Request $request, User $user)
     {
-        $form = $this->createForm(UserType::class, $user, ['update' => true]);
+        $form = $this->createForm(UserType::class, $user, ['update' => true, 'submitLabel' => 'Update user']);
 
         $form->handleRequest($request);
 
@@ -128,7 +129,7 @@ class UserController extends Controller
             return $this->redirectToRoute('app_admin_user_index');
         }
 
-        return $this->render(':admin:form.html.twig',
+        return $this->render(':admin/user:form.html.twig',
             [
                 'form'      => $form->createView(),
                 'action'    => $this->generateUrl('app_admin_user_doEdit', ['id' => $user->getId()]),
