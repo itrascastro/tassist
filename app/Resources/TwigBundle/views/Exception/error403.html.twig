@@ -1,1 +1,9 @@
-No permitido
+{% extends '::attendance-layout.html.twig' %}
+
+{% block body %}
+    <h1>Access Denied - 403 Forbidden</h1>
+
+    <p>
+        <a href="{{ path('app_attendance_index') }}">return to the homepage</a>.
+    </p>
+{% endblock %}
