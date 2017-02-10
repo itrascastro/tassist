@@ -3,9 +3,14 @@ app_admin:
     type:     annotation
     prefix:   /admin/users
 
-app:
+app_attendance:
     resource: "@AppBundle/Controller/AttendanceController.php"
     type:     annotation
+
+app_user:
+    resource: "@AppBundle/Controller/UserController.php"
+    type:     annotation
+    prefix:   /profile
 
 security:
     resource: "@AppBundle/Controller/SecurityController.php"

@@ -53,34 +53,38 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b>Created:</b> {{ user.createdAt|date('d/m/Y') }}
-                        </div>
-                    </div> <!-- row -->
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <b>Created:</b> {{ user.createdAt|date('d/m/Y') }}
+                            </div>
+                        </div> <!-- row -->
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% if user.createdAt|date("d/m/Y H:i:s") < user.updatedAt|date("d/m/Y H:i:s") %}
-                                <b>Updated:</b> {{ user.updatedAt|date('d/m/Y') }}
-                            {% endif %}
-                        </div>
-                    </div> <!-- row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% if user.createdAt|date("d/m/Y H:i:s") < user.updatedAt|date("d/m/Y H:i:s") %}
+                                    <b>Updated:</b> {{ user.updatedAt|date('d/m/Y') }}
+                                {% endif %}
+                            </div>
+                        </div> <!-- row -->
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% if user.hasRole('ROLE_ADMIN') %}
-                                <b class="alert-warning">ROLE_ADMIN</b>
-                            {% endif %}
-                        </div>
-                    </div> <!-- row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% if user.hasRole('ROLE_ADMIN') %}
+                                    <b class="alert-warning">ROLE_ADMIN</b>
+                                {% endif %}
+                            </div>
+                        </div> <!-- row -->
+                    {% endif %}
                 </div>
             </div> <!-- row -->
 
             <div class="row margin-bottom-sm">
                 <div class="col-md-12">
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-lg btn-default" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
                     <a class="btn btn-lg btn-default" href="{{ path('app_admin_user_remove', {'id': user.id}) }}">Remove</a>
+                    {% endif %}
                 </div>
             </div> <!-- row -->
         </div>
