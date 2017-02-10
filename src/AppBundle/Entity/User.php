@@ -18,6 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
+    const SCHEDULE_HOURS    = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    const SCHEDULE_MINUTES  = [0, 20, 30, 50];
+
     /**
      * @var integer
      *
