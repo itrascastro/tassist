@@ -2,22 +2,76 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row margin-bottom-lg">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <b>Name:</b>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-5">
                             {{ user.forename }} {{ user.surname }}
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div> <!-- row -->
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <b>Username:</b>
+                        </div>
+                        <div class="col-md-5">
+                            {{ user.username }}
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div> <!-- row -->
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <b>Entrades:</b>
+                        </div>
+                        <div class="col-md-10">
+                            {{ user.mondayIn|date('H:i') }} | {{ user.TuesdayIn|date('H:i') }} |
+                            {{ user.wednesdayIn|date('H:i') }}  | {{ user.thursdayIn|date('H:i') }} |
+                            {{ user.fridayIn|date('H:i') }}
                         </div>
                     </div> <!-- row -->
 
                     <div class="row">
                         <div class="col-md-2">
-                            <b>Username:</b>
+                            <b>Sortides:</b>
                         </div>
                         <div class="col-md-10">
-                            {{ user.username }}
+                            {{ user.mondayOut|date('H:i') }} | {{ user.TuesdayOut|date('H:i') }} |
+                            {{ user.wednesdayOut|date('H:i') }}  | {{ user.thursdayOut|date('H:i') }} |
+                            {{ user.fridayOut|date('H:i') }}
+                        </div>
+                    </div> <!-- row -->
+                </div>
+
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Created:</b> {{ user.createdAt|date('d/m/Y') }}
+                        </div>
+                    </div> <!-- row -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if user.createdAt|date("d/m/Y H:i:s") < user.updatedAt|date("d/m/Y H:i:s") %}
+                                <b>Updated:</b> {{ user.updatedAt|date('d/m/Y') }}
+                            {% endif %}
+                        </div>
+                    </div> <!-- row -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if user.hasRole('ROLE_ADMIN') %}
+                                <b class="alert-warning">ROLE_ADMIN</b>
+                            {% endif %}
                         </div>
                     </div> <!-- row -->
                 </div>
