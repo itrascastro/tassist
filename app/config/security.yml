@@ -22,5 +22,4 @@ security:
                 target: /
 
     access_control:
-#        - { path: ^/update, roles: ROLE_ADMIN  }
-#        - { path: ^/remove, roles: ROLE_ADMIN  }
+#        - { path: ^/admin, roles: ROLE_ADMIN  }
