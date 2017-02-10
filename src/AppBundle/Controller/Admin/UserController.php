@@ -137,4 +137,17 @@ class UserController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/remove/{id}", name="app_admin_user_remove")
+     */
+    public function removeAction(User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('app_admin_user_index');
+    }
 }
