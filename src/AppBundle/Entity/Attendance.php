@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Attendance
  *
+ * It is not abstract. Attendance instance is created at AttendanceController to show the Attendance Form
+ *
  * @ORM\MappedSuperclass()
  * @ORM\HasLifecycleCallbacks()
  */
