@@ -26,4 +26,29 @@ class TimeService
 
         return ($t2 - $t1) / 60;
     }
+
+    public function dayOfWeek($dayNumber)
+    {
+        $dayOfWeek = '';
+
+        switch ($dayNumber) {
+            case 1:
+                $dayOfWeek = 'Dilluns';
+                break;
+            case 2:
+                $dayOfWeek = 'Dimarts';
+                break;
+            case 3:
+                $dayOfWeek = 'Dimecres';
+                break;
+            case 4:
+                $dayOfWeek = 'Dijous';
+                break;
+            case 5:
+                $dayOfWeek = 'Divendres';
+                break;
+        }
+
+        return $dayOfWeek;
+    }
 }

@@ -56,6 +56,19 @@ class Attendance
      */
     private $commentByAdmin;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column((name="day_of_week", type="string")
+     */
+    private $dayOfWeek;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="schedule_time", type="time", nullable=true)
+     */
+    private $scheduleTime;
+
     protected $user;
 
     /**
@@ -162,6 +175,44 @@ class Attendance
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDayOfWeek()
+    {
+        return $this->dayOfWeek;
+    }
+
+    /**
+     * @param string $dayOfWeek
+     * @return $this
+     */
+    public function setDayOfWeek($dayOfWeek)
+    {
+        $this->dayOfWeek = $dayOfWeek;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getScheduleTime()
+    {
+        return $this->scheduleTime;
+    }
+
+    /**
+     * @param \DateTime $scheduleTime
+     * @return $this
+     */
+    public function setScheduleTime($scheduleTime)
+    {
+        $this->scheduleTime = $scheduleTime;
+
+        return $this;
     }
 
     /**

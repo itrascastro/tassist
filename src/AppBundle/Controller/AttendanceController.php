@@ -64,16 +64,16 @@ class AttendanceController extends Controller
             $day            = (int) (new \DateTime())->format('w');
             $user           = $this->getUser();
             $em             = $this->getDoctrine()->getManager();
-            $delay          = 0;
+            $dayOfWeek      = $timeService->dayOfWeek($day);
 
             if ($form->get('entradaBtn')->isClicked()) {
-                $this->doAttendanceIn($timeService, $day, $delay, $user, $attendance, $em);
+                $this->doAttendanceIn($timeService, $day, $dayOfWeek, $user, $attendance, $em);
             }
             if ($form->get('sortidaBtn')->isClicked()) {
-                $this->doAttendanceOut($timeService, $day, $delay, $user, $attendance, $em);
+                $this->doAttendanceOut($timeService, $day, $dayOfWeek, $user, $attendance, $em);
             }
             if ($form->get('absenciaBtn')->isClicked()) {
-                $this->doAttendanceAbsence($user, $attendance, $em);
+                $this->doAttendanceAbsence($dayOfWeek, $user, $attendance, $em);
             }
 
             $em->flush();
@@ -88,76 +88,87 @@ class AttendanceController extends Controller
         );
     }
 
-    public function doAttendanceIn(TimeService $timeService, $day, $delay, User $user, Attendance $attendance, ObjectManager $em)
+    public function doAttendanceIn(TimeService $timeService, $day, $dayOfWeek, User $user, Attendance $attendance, ObjectManager $em)
     {
+        $scheduleTime   = null;
+
         switch ($day) {
             case 1:
-                $delay = $timeService->timeDiff($user->getMondayIn());
+                $scheduleTime = $user->getMondayIn();
                 break;
             case 2:
-                $delay = $timeService->timeDiff($user->getTuesdayIn());
+                $scheduleTime = $user->getTuesdayIn();
                 break;
             case 3:
-                $delay = $timeService->timeDiff($user->getWednesdayIn());
+                $scheduleTime = $user->getWednesdayIn();
                 break;
             case 4:
-                $delay = $timeService->timeDiff($user->getThursdayIn());
+                $scheduleTime = $user->getThursdayIn();
                 break;
             case 5:
-                $delay = $timeService->timeDiff($user->getFridayIn());
+                $scheduleTime = $user->getFridayIn();
                 break;
         }
+
+        $delay = $timeService->timeDiff($scheduleTime);
 
         $checkIn = new CheckIn();
         $checkIn
             ->setDelay($delay)
             ->setJustified(0)
             ->setUser($user)
+            ->setDayOfWeek($dayOfWeek)
+            ->setScheduleTime($scheduleTime)
             ->setCommentByUser($attendance->getCommentByUser())
         ;
 
         $em->persist($checkIn);
     }
 
-    public function doAttendanceOut(TimeService $timeService, $day, $delay, User $user, Attendance $attendance, ObjectManager $em)
+    public function doAttendanceOut(TimeService $timeService, $day, $dayOfWeek, User $user, Attendance $attendance, ObjectManager $em)
     {
+        $scheduleTime   = null;
+
         switch ($day) {
             case 1:
-                $delay = $timeService->timeDiff($user->getMondayOut());
+                $scheduleTime = $user->getMondayOut();
                 break;
             case 2:
-                $delay = $timeService->timeDiff($user->getTuesdayOut());
+                $scheduleTime = $user->getTuesdayOut();
                 break;
             case 3:
-                $delay = $timeService->timeDiff($user->getWednesdayOut());
+                $scheduleTime = $user->getWednesdayOut();
                 break;
             case 4:
-                $delay = $timeService->timeDiff($user->getThursdayOut());
+                $scheduleTime = $user->getThursdayOut();
                 break;
             case 5:
-                $delay = $timeService->timeDiff($user->getFridayOut());
+                $scheduleTime = $user->getFridayOut();
                 break;
         }
 
-        $delay = -1 * $delay;
+        $delay = -1 * $timeService->timeDiff($scheduleTime);
 
         $checkOut = new CheckOut();
         $checkOut
             ->setDelay($delay)
             ->setJustified(0)
             ->setUser($user)
+            ->setDayOfWeek($dayOfWeek)
+            ->setScheduleTime($scheduleTime)
             ->setCommentByUser($attendance->getCommentByUser())
         ;
 
         $em->persist($checkOut);
     }
 
-    public function doAttendanceAbsence(User $user, Attendance $attendance, ObjectManager $em)
+    public function doAttendanceAbsence($dayOfWeek, User $user, Attendance $attendance, ObjectManager $em)
     {
         $absence = new Absence();
         $absence
             ->setJustified(1)
             ->setUser($user)
+            ->setDayOfWeek($dayOfWeek)
             ->setCommentByUser($attendance->getCommentByUser())
         ;
 
