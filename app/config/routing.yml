@@ -15,3 +15,8 @@ app_user:
 security:
     resource: "@AppBundle/Controller/SecurityController.php"
     type:     annotation
+
+app_checkins:
+    resource: "@AppBundle/Controller/CheckInController.php"
+    type:     annotation
+    prefix:   /checkins

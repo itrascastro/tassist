@@ -1,0 +1,9 @@
+{% extends '::user-area-layout.html.twig' %}
+
+{% block headTitle %}{{ title }}{% endblock %}
+
+{% block body %}
+    {% for record in records %}
+        {% include ':records:record.html.twig' %}
+    {% endfor %}
+{% endblock %}
