@@ -21,7 +21,6 @@ class Absence extends Attendance
      */
     private $id;
 
-
     /**
      * Get id
      *

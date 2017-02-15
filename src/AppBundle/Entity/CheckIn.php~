@@ -21,7 +21,6 @@ class CheckIn extends Attendance
      */
     private $id;
 
-
     /**
      * Get id
      *

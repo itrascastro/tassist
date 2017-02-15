@@ -29,7 +29,7 @@ class LoadUsers implements FixtureInterface
     {
         $admin = new User();
         $admin
-            ->setUsername('itrascastro@email.com')
+            ->setUsername('i.trascastro@gmail.com')
             ->setForename('Ismael')
             ->setSurname('Trascastro')
             ->setPlainPassword('1234')

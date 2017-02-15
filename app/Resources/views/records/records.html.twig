@@ -3,6 +3,34 @@
 {% block headTitle %}{{ title }}{% endblock %}
 
 {% block body %}
+    <div class="rounded-box margin-bottom-lg list-header">
+        <div class="row">
+            <div class="col-md-1">
+                <b>Data</b>
+            </div>
+            <div class="col-md-1">
+                <b>Dia</b>
+            </div>
+            <div class="col-md-1">
+                <b>Horari</b>
+            </div>
+            <div class="col-md-1">
+                <b>Registre</b>
+            </div>
+            <div class="col-md-1">
+                <b>Retard</b>
+            </div>
+            <div class="col-md-1">
+                <b>Justificat</b>
+            </div>
+            <div class="col-md-3">
+                <b>Comentari</b>
+            </div>
+            <div class="col-md-3">
+                <b>Comentari Admin</b>
+            </div>
+        </div> <!-- row -->
+    </div>
     {% for record in records %}
         {% include ':records:record.html.twig' %}
     {% endfor %}

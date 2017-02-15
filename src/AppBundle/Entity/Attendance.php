@@ -22,7 +22,7 @@ class Attendance
     private $delay;
 
     /**
-     * @var int (0: nothing to say || 1: not justified || 2: justified)
+     * @var int (0: not handled || 1: not justified || 2: justified)
      *
      * @ORM\Column(name="justified", type="integer")
      */
