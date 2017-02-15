@@ -59,7 +59,7 @@ class Attendance
     /**
      * @var string
      *
-     * @ORM\Column((name="day_of_week", type="string")
+     * @ORM\Column(name="day_of_week", type="string")
      */
     private $dayOfWeek;
 
