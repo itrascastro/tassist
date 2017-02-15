@@ -73,7 +73,7 @@ class AttendanceController extends Controller
                 $this->doAttendanceOut($timeService, $day, $dayOfWeek, $user, $attendance, $em);
             }
             if ($form->get('absenciaBtn')->isClicked()) {
-                $this->doAttendanceAbsence($dayOfWeek, $user, $attendance, $em);
+                $this->doAttendanceAbsence($day, $dayOfWeek, $user, $attendance, $em);
             }
 
             $em->flush();
@@ -162,13 +162,34 @@ class AttendanceController extends Controller
         $em->persist($checkOut);
     }
 
-    public function doAttendanceAbsence($dayOfWeek, User $user, Attendance $attendance, ObjectManager $em)
+    public function doAttendanceAbsence($day, $dayOfWeek, User $user, Attendance $attendance, ObjectManager $em)
     {
+        $scheduleTime   = null;
+
+        switch ($day) {
+            case 1:
+                $scheduleTime = $user->getMondayIn();
+                break;
+            case 2:
+                $scheduleTime = $user->getTuesdayIn();
+                break;
+            case 3:
+                $scheduleTime = $user->getWednesdayIn();
+                break;
+            case 4:
+                $scheduleTime = $user->getThursdayIn();
+                break;
+            case 5:
+                $scheduleTime = $user->getFridayIn();
+                break;
+        }
+
         $absence = new Absence();
         $absence
             ->setJustified(1)
             ->setUser($user)
             ->setDayOfWeek($dayOfWeek)
+            ->setScheduleTime($scheduleTime)
             ->setCommentByUser($attendance->getCommentByUser())
         ;
 

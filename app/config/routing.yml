@@ -20,3 +20,13 @@ app_checkins:
     resource: "@AppBundle/Controller/CheckInController.php"
     type:     annotation
     prefix:   /checkins
+
+app_checkouts:
+    resource: "@AppBundle/Controller/CheckOutController.php"
+    type:     annotation
+    prefix:   /checkouts
+
+app_absences:
+    resource: "@AppBundle/Controller/AbsenceController.php"
+    type:     annotation
+    prefix:   /absences
