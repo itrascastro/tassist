@@ -10,12 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CheckOutController extends Controller
 {
     /**
-     * @Route("/", name="app_checkOut_index")
+     * @Route("/{id}", name="app_checkOut_index")
      * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction()
+    public function indexAction(User $user)
     {
-        $checkOuts = $this->getUser()->getCheckOuts();
+        $checkOuts = $user->getCheckOuts();
 
         return $this->render(':records:records.html.twig',
             [

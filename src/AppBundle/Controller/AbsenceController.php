@@ -10,12 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AbsenceController extends Controller
 {
     /**
-     * @Route("/", name="app_absence_index")
+     * @Route("/{id}", name="app_absence_index")
      * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction()
+    public function indexAction(User $user)
     {
-        $absences = $this->getUser()->getAbsences();
+        $absences = $user->getAbsences();
 
         return $this->render(':records:records.html.twig',
             [

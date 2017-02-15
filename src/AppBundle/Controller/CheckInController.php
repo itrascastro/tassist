@@ -10,12 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CheckInController extends Controller
 {
     /**
-     * @Route("/", name="app_checkIn_index")
+     * @Route("/{id}", name="app_checkIn_index")
      * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction()
+    public function indexAction(User $user)
     {
-        $checkIns = $this->getUser()->getCheckIns();
+        $checkIns = $user->getCheckIns();
 
         return $this->render(':records:records.html.twig',
             [
