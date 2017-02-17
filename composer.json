@@ -62,7 +62,8 @@
                 "database_name": "SYMFONY__DATABASE_NAME",
                 "database_user": "SYMFONY__DATABASE_USER",
                 "database_host": "SYMFONY__DATABASE_HOST",
-                "database_password": "SYMFONY__DATABASE_PASSWORD"
+                "database_password": "SYMFONY__DATABASE_PASSWORD",
+                "secret": "SYMFONY__SECRET_TOKEN"
             }
         },
         "branch-alias": {
