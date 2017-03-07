@@ -36,6 +36,12 @@
     font-weight: bold;
 }
 
+.success-record {
+    background-color: #dff0d8;
+    color: #333;
+    font-weight: bold;
+}
+
 .list-header {
     background-color: #fff;
     color: #333;

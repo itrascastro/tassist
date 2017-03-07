@@ -1,6 +1,6 @@
 {% extends '::user-area-layout.html.twig' %}
 
-{% block headTitle %}{{ title }}{% endblock %}
+{% block headTitle %}{{ title }} - <span class="bg-info">{{ user.forename }} {{ user.surname }}</span>{% endblock %}
 
 {% block body %}
     <div class="rounded-box margin-bottom-lg list-header">

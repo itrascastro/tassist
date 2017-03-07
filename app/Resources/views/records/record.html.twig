@@ -1,6 +1,6 @@
 <!-- Fecha | Dia de la semana | Horario | Hora Registro | Delay | Justificado | CommentByUser | CommentByAdmin -->
 
-<div class="rounded-box margin-bottom-lg {% if record.delay > maxDelayAllowed and record.justified != 2 %}warning-record{% endif %}">
+<div class="rounded-box margin-bottom-lg {% if record.delay > maxDelayAllowed and record.justified != 2 %}warning-record{% else %}success-record{% endif %}">
     <div class="row">
         <div class="col-md-1">
             {{ record.createdAt|date('d/m/y') }}

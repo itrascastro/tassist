@@ -22,6 +22,7 @@ class CheckInController extends Controller
                 'records'           => $checkIns,
                 'title'             => 'Entrades',
                 'maxDelayAllowed'   => User::MAX_DELAY_ALLOWED,
+                'user'              => $user,
             ]
         );
     }

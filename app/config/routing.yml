@@ -1,7 +1,12 @@
-app_admin:
+app_admin_user:
     resource: "@AppBundle/Controller/Admin/UserController.php"
     type:     annotation
     prefix:   /admin/users
+
+app_admin_attendance:
+    resource: "@AppBundle/Controller/Admin/AttendanceController.php"
+    type:     annotation
+    prefix:   /admin/attendance
 
 app_attendance:
     resource: "@AppBundle/Controller/AttendanceController.php"
