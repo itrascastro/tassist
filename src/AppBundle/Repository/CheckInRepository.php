@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class CheckInRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTime($date, $userId)
+    {
+        $query = $this->createQueryBuilder('check_in')
+            ->leftJoin('check_in.user', 'user') // use contextual help to see the associations
+            ->andWhere('user.id = :id')
+            ->setParameter('id', $userId)
+            ->addOrderBy('a.createdAt', 'DESC')
+            ->addSelect('author') // avoid lazy loading in views
+            ->getQuery()
+        ;
+
+        return $query;
+    }
 }

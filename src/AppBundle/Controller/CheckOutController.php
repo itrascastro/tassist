@@ -22,6 +22,7 @@ class CheckOutController extends Controller
                 'records'           => $checkOuts,
                 'title'             => 'Sortides',
                 'maxDelayAllowed'   => User::MAX_DELAY_ALLOWED,
+                'user'              => $user,
             ]
         );
     }

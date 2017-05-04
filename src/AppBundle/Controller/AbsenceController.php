@@ -22,6 +22,7 @@ class AbsenceController extends Controller
                 'records'           => $absences,
                 'title'             => 'Absences',
                 'maxDelayAllowed'   => 1000, //big number to avoid delay in view
+                'user'              => $user,
             ]
         );
     }

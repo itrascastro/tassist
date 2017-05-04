@@ -57,28 +57,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="#">Articles</a></li>
-                <li><a href="#">New article</a></li>
-                <li><a href="#">Update article</a></li>
-                <li><a href="#">Remove article</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Tags</a></li>
-                <li><a href="">New tag</a></li>
-                <li><a href="">Update tag</a></li>
-                <li><a href="">Remove tag</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="#">Comments</a></li>
-                <li><a href="#">New comment</a></li>
-                <li><a href="#">Update comment</a></li>
-                <li><a href="#">Remove comment</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Users</a></li>
-                <li><a href="">New user</a></li>
-                <li><a href="">Update user</a></li>
-                <li><a href="">Remove user</a></li>
+                <li><a href="{{ path('app_admin_user_index') }}">Users</a></li>
+                <li><a href="{{ path('app_admin_user_create') }}">Create</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
