@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\CheckIn;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckInController extends Controller
 {
@@ -45,14 +47,41 @@ class CheckInController extends Controller
 
         $checkIns = $chekinRepo->getCheckInByUserDate($date1, $date2, 3);
 
-        $totalRetard = 0;
+        $totalDelay = 0;
 
+        $rows = array();
+        $data = array('Data', 'Dia', 'Horari', 'Registre', 'Retard', 'Justificat', 'Comentari', 'Comentari Admin');
+        $rows[] = implode(',', $data);
+
+        /**
+         * @var $checkIn CheckIn
+         */
         foreach ($checkIns as $checkIn) {
-            $totalRetard += $checkIn->getDelay();
+            $totalDelay += $checkIn->getDelay();
+            $data = array(
+                $checkIn->getCreatedAt()->format('d/m/Y'),
+                $checkIn->getDayOfWeek(),
+                $checkIn->getScheduleTime()->format('H:i'),
+                $checkIn->getCreatedAt()->format('H:i'),
+                $checkIn->getDelay(),
+                $checkIn->getJustified(),
+                $checkIn->getCommentByUser(),
+                $checkIn->getCommentByAdmin()
+            );
+            $rows[] = implode(',', $data);
         }
 
-        //echo $totalRetard;
+        $data = array('Total', $totalDelay);
+        $rows[] = implode(',', $data);
 
+        $content = implode("\n", $rows);
+
+        $response = new Response($content);
+        $response->headers->set('Content-Type', 'text/csv');
+
+        return $response;
+
+        /*
         return $this->render(':records:records.html.twig',
             [
                 'records'           => $checkIns,
@@ -61,6 +90,6 @@ class CheckInController extends Controller
                 'user'              => $user,
             ]
         );
-
+        */
     }
 }
