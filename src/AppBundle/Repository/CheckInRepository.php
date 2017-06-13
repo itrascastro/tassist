@@ -23,4 +23,20 @@ class CheckInRepository extends \Doctrine\ORM\EntityRepository
 
         return $query;
     }
+
+    public function getCheckInByUserDate(\DateTime $date1, \DateTime $date2, $userId)
+    {
+        $query = $this->createQueryBuilder('check_in')
+            ->leftJoin('check_in.user', 'user')
+            ->andWhere('user.id = :id')
+            ->andWhere('check_in.createdAt BETWEEN :date1 AND :date2')
+            ->setParameter('date1', $date1)
+            ->setParameter('date2', $date2)
+            ->setParameter('id', $userId)
+            ->orderBy('check_in.createdAt', 'DESC')
+            ->getQuery()
+        ;
+
+        return $query->execute();
+    }
 }
